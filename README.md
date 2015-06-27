@@ -3,8 +3,6 @@
 
 A collection of awesome Ruby static generators for sites, blogs, books, presentations, etc.
 
-A collection of awesome Ruby web frameworks, libraries, tools, etc.
-
 
 Note: :gem: stands for the RubyGems page, :octocat: stands for the GitHub page and :book: stands for the RubyDoc page.
 
@@ -29,8 +27,34 @@ Contributions welcome. Anything missing? Send in a pull request. Thanks.
 
 ## Blogs 'n' Sites
 
+### Jekyll, Octopress, GitHub Pages
+
+- [Jekyll HQ](http://jekyllrb.com) - [:octocat:](https://github.com/jekyll), [:gem:](https://rubygems.org/gems/jekyll), [:book:](http://rubydoc.info/gems/jekyll)
+- [Octopress HQ](http://octopress.org) - [:octocat:](https://github.com/octopress), [:gem:](https://rubygems.org/gems/octopress), [:book:](http://rubydoc.info/gems/octopress)
+- [GitHub Pages HQ](https://pages.github.com) - [:octocat:](https://github.com/github/pages-gem), [:gem:](https://rubygems.org/gems/github-pages)
+
+For more see the [Awesome Jekyll »](https://github.com/planetjekyll/awesome-jekyll) list @ Planet Jekyll.
+
+### Middleman
+
+- [Middleman HQ](https://middlemanapp.com) - [:octocat:](https://github.com/middleman), [:gem:](https://rubygems.org/gems/middleman), [:book:](http://rubydoc.info/gems/middleman)
+
+
+
+### More
+
 
 ## Books
+
+## Slideshows 'n' Presentations
+
+## Galleries
+
+## Catalogs
+
+## Calendars
+
+## Misc
 
 ## Meta
 
