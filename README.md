@@ -28,21 +28,22 @@ Contributions welcome. Anything missing? Send in a pull request. Thanks.
 
 ## Blogs 'n' Sites
 
-### Jekyll, Octopress, GitHub Pages
+**Jekyll, Octopress, GitHub Pages**
 
-- [Jekyll HQ](http://jekyllrb.com) - [:octocat:](https://github.com/jekyll), [:gem:](https://rubygems.org/gems/jekyll), [:book:](http://rubydoc.info/gems/jekyll) by Tom Preston-Werner, Nick Quaranto, Parker Moore et al
-- [Octopress HQ](http://octopress.org) - [:octocat:](https://github.com/octopress), [:gem:](https://rubygems.org/gems/octopress), [:book:](http://rubydoc.info/gems/octopress) by Brandon Mathis et al
-- [GitHub Pages HQ](https://pages.github.com) - [:octocat:](https://github.com/github/pages-gem), [:gem:](https://rubygems.org/gems/github-pages) by GitHub Inc.
+- [Jekyll HQ](http://jekyllrb.com) - [:octocat:](https://github.com/jekyll), [:gem:](https://rubygems.org/gems/jekyll), [:book:](http://rubydoc.info/gems/jekyll) - by Tom Preston-Werner, Nick Quaranto, Parker Moore et al
+- [Octopress HQ](http://octopress.org) - [:octocat:](https://github.com/octopress), [:gem:](https://rubygems.org/gems/octopress), [:book:](http://rubydoc.info/gems/octopress) - by Brandon Mathis et al
+- [GitHub Pages HQ](https://pages.github.com) - [:octocat:](https://github.com/github/pages-gem), [:gem:](https://rubygems.org/gems/github-pages) - by GitHub Inc.
 
-For more see the [Awesome Jekyll »](https://github.com/planetjekyll/awesome-jekyll) list @ Planet Jekyll.
+For more see the [Awesome Jekyll List @ Planet Jekyll »](https://github.com/planetjekyll/awesome-jekyll).
 
-### Middleman
+
+**Middleman**
 
 - [Middleman HQ](https://middlemanapp.com) - [:octocat:](https://github.com/middleman), [:gem:](https://rubygems.org/gems/middleman) by Thomas Reynolds et al
     - [Extensions, Templates, Services](https://directory.middlemanapp.com) - directory 
 
 
-### More
+**More**
 
 - [Nanoc HQ](http://nanoc.ws) - [:octocat:](https://github.com/nanoc), [:gem:](https://rubygems.org/gems/nanoc) by Denis Defreyne et al
 
