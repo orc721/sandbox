@@ -12,16 +12,13 @@ Awesome Series @ Planet Ruby
 
 A collection of awesome Ruby static generators for sites, blogs, books, presentations, etc.
 
-
-Note: :gem: stands for the RubyGems page, :octocat: stands for the GitHub page and :book: stands for the RubyDoc page.
-
 ---
 
 [ANNOUNCEMENT] Looking for awesome markdown goodies (e.g. libraries, services, editors, tools, etc.)? See the [Awesome Markdown List](https://github.com/writekit/awesome-markdown). 
 
 ---
 
-Contributions welcome. Anything missing? Send in a pull request. Thanks.
+#### _Contributions welcome. Anything missing? Send in a pull request. Thanks._
 
 
 [Blogs 'n' Sites](#blogs-n-sites) •
@@ -33,6 +30,8 @@ Contributions welcome. Anything missing? Send in a pull request. Thanks.
 [Calendars](#calendars) • 
 [Misc](#misc) •
 [Meta](#meta)
+
+Note: :gem: stands for the RubyGems page, :octocat: stands for the GitHub page and :book: stands for the RubyDoc page.
 
 
 ## Blogs 'n' Sites
