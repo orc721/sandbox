@@ -101,15 +101,6 @@ def setup( owner, total_supply, decimals, name, symbol )
   @owner        = owner
 end  
 
-sig :private, [Address, Address, Money],
-def perform_transfer( from, dest, tokens )
-  account_sender = @accounts[ from ]
-  assert account_sender.balance - tokens > 0, "Not enough tokens for transfer: #{account_sender.balance}"  
-
-  account_sender = @accounts[ dest ].balance -= token
-  account_dest   = @accounts[ dest ].balance += token
-end
-
 sig [Address, Money],
 def transfer( dest, tokens )
  perform_transfer( msg.sender, dest, tokens )
@@ -150,14 +141,15 @@ def create_account( dest, tokens )
   perform_transfer( @owner, dest, tokens )
 end
 
-sig [Array.of(Tuple.of(Address,Money)],
-def create_accounts( new_accounts )
-  assert msg.sender == @owner, "Only owner can create accounts"
+private
 
-  new_accounts.each do |rec|
-    dest, tokens = rec
-    perform_transfer( @owner, dest, tokens )
-  end
+sig [Address, Address, Money],
+def perform_transfer( from, dest, tokens )
+  account_sender = @accounts[ from ]
+  assert account_sender.balance - tokens > 0, "Not enough tokens for transfer: #{account_sender.balance}"  
+
+  account_sender = @accounts[ dest ].balance -= token
+  account_dest   = @accounts[ dest ].balance += token
 end
 ```
 
@@ -254,24 +246,13 @@ let%entry createAccount = ((dest, tokens), storage) => {
   };
   perform_transfer((storage.owner, dest, tokens, storage));
 };
-
-let%entry createAccounts = (new_accounts, storage) => {
-  if (Current.sender() != storage.owner) {
-    failwith("Only owner can create accounts");
-  };
-  List.fold(
-    (((dest, tokens), (_ops, storage))) =>
-      perform_transfer((storage.owner, dest, tokens, storage)),
-    new_accounts,
-    ([], storage),
-  );
-};
 ```
 
 
-## References
+## Notes
 
-- The Liquidity Language for contracts (with OCaml or ReasonML syntax) - see <http://www.liquidity-lang.org>; compiles to Michelson bytecode - see <https://www.michelson-lang.com>
+The Liquidity Language for contracts (with OCaml or ReasonML syntax) - see <http://www.liquidity-lang.org>; 
+compiles to Michelson bytecode - see <https://www.michelson-lang.com>.
 
 
 
