@@ -9,6 +9,7 @@ New to (Secure) Ruby? See the [Red Paper](https://github.com/s6ruby/redpaper)!
 **Let's Vote**
 
 ``` ruby
+sig [String],
 def setup( myname )
   @votes = Mapping.of( String, Integer )
   @votes[ "ocaml"  ] = 0
@@ -16,6 +17,7 @@ def setup( myname )
   @votes[ myname   ] = 0
 end
 
+sig [String],
 def main( choice )
   assert msg.value >= 5.tz, "Not enough money, at least 5tz to vote"
   assert @votes.has_key?( choice ), "Bad vote"
@@ -56,6 +58,7 @@ struct :Account,
   balance:    Money(0),
   allowances: Mapping.of( Address, Money )
 
+sig [Address, Money, Nat, String, String],
 def setup( owner, total_supply, decimals, name, symbol )
   @accounts = Mapping.of( Address, Account )
   @accounts[ owner ].total_supply = total_supply
@@ -68,6 +71,7 @@ def setup( owner, total_supply, decimals, name, symbol )
   @owner        = owner
 end  
 
+sig :private, [Address, Address, Money],
 def perform_transfer( from, dest, tokens )
   account_sender = @accounts[ from ]
   assert account_sender.balance - tokens > 0, "Not enough tokens for transfer: #{account_sender.balance}"  
@@ -76,10 +80,12 @@ def perform_transfer( from, dest, tokens )
   account_dest   = @accounts[ dest ].balance += token
 end
 
+sig [Address, Money],
 def transfer( dest, tokens )
  perform_transfer( msg.sender, dest, tokens )
 end
 
+sig [Address, Money],
 def approve( spender, tokens )
   account_sender = @accounts[ msg.sender ]
   if tokens == 0
@@ -89,6 +95,7 @@ def approve( spender, tokens )
   end
 end  
 
+sig [Address, Address, Money],
 def transfer_from( from, dest, tokens )
   account_from = @accounts[ from ]
 
@@ -107,11 +114,13 @@ def transfer_from( from, dest, tokens )
   perform_transfer( from, dest, tokens )
 end
 
+sig [Address, Money],
 def create_account( dest, tokens )
   assert msg.sender == @owner, "Only owner can create accounts"
   perform_transfer( @owner, dest, tokens )
 end
 
+sig [Array.of(Tuple.of(Address,Money)],
 def create_accounts( new_accounts )
   assert msg.sender == @owner, "Only owner can create accounts"
 
