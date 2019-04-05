@@ -1,7 +1,7 @@
 New to (Secure) Ruby? See the [Red Paper](https://github.com/s6ruby/redpaper)!
 
 
-# (Secure) Ruby to Liquidity / Michelson (Source-to-Source) Cross-Compiler Cheat Sheet / White Paper
+# (Secure) Ruby to Liquidity (w/ ReasonML Syntax) / Michelson (Source-to-Source) Cross-Compiler Cheat Sheet / White Paper
 
 
 ## By Example
