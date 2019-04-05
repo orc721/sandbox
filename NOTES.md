@@ -69,6 +69,9 @@ class NimGame(sp.Contract):
 
 Pascal-like contract language
 
+- <https://medium.com/tezos/introducing-ligo-a-new-smart-contract-language-for-tezos-233fa17f21c7>
+
+
 Example:
 
 ```
@@ -97,7 +100,3 @@ entrypoint contribute (storage store : state;
       else null
   end with (store, operations)
 ```
-
-- <https://medium.com/tezos/introducing-ligo-a-new-smart-contract-language-for-tezos-233fa17f21c7>
-
-
