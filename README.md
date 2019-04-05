@@ -239,6 +239,11 @@ let%entry createAccounts = (new_accounts, storage) => {
 ```
 
 
+## References
+
+- The Liquidity Language for contracts (with OCaml or ReasonML syntax) - see <http://www.liquidity-lang.org>; compiles to Michelson bytecode - see <https://www.michelson-lang.com>
+
+
 
 ## License
 
