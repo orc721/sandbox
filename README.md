@@ -251,7 +251,7 @@ let%entry createAccount = ((dest, tokens), storage) => {
 
 ## Notes
 
-The Liquidity Language for programming contracts with OCaml or ReasonML syntax (see <http://www.liquidity-lang.org>
+The Liquidity Language for programming contracts with OCaml or ReasonML syntax (see <http://www.liquidity-lang.org>)
 compiles to Michelson bytecode (see <https://www.michelson-lang.com>).
 
 
