@@ -255,6 +255,8 @@ let%entry createAccount = ((dest, tokens), storage) => {
 # to be done
 ```
 
+gets cross-compiled to:
+
 ``` reason
 type game = {
   number: nat,
@@ -267,7 +269,7 @@ type storage = {
   oracle_id: address,
 };
 
-let%setup storage = (oracle_id: address) => {game: None, oracle_id};
+let%init setup = (oracle_id: address) => {game: None, oracle_id};
 
 let%entry play = ((number: nat, player: key_hash), storage) => {
   if (number > 100p) {
