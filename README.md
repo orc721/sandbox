@@ -88,7 +88,7 @@ struct :Account,
   balance:    Money(0),
   allowances: Mapping.of( Address, Money )
 
-sig [Address, Money, Nat, String, String],
+sig [Address, Money, Integer, String, String],
 def setup( owner, total_supply, decimals, name, symbol )
   @accounts = Mapping.of( Address, Account )
   @accounts[ owner ].total_supply = total_supply
