@@ -6,19 +6,48 @@ New to (Secure) Ruby? See the [Red Paper](https://github.com/s6ruby/redpaper)!
 
 ## By Example
 
+
+**Let's Count - 0, 1, 2, 3**
+
+``` ruby
+def setup
+  @counter = 0
+end
+
+sig [Integer],
+def inc( by )
+  @counter += by
+end
+```
+
+gets cross-compiled to:
+
+``` reason
+type storage = int;
+
+let%init setup = () => {
+  0;
+};
+
+let%entry inc = (by: int, storage) => {
+  ([], storage + by);
+};
+```
+
+
+
 **Let's Vote**
 
 ``` ruby
-sig [String],
-def setup( myname )
+def setup
   @votes = Mapping.of( String, Integer )
   @votes[ "ocaml"  ] = 0
   @votes[ "reason" ] = 0
-  @votes[ myname   ] = 0
+  @votes[ "ruby"   ] = 0
 end
 
 sig [String],
-def main( choice )
+def vote( choice )
   assert msg.value >= 5.tz, "Not enough money, at least 5tz to vote"
   assert @votes.has_key?( choice ), "Bad vote"
 
@@ -31,10 +60,11 @@ gets cross-compiled to:
 ``` reason
 type storage = map(string, int);
 
-let%init initial_votes = (myname: string) =>
-  Map.add(myname, 0, Map([("ocaml", 0), ("reason", 0)]));
+let%init setup = () => {
+  Map([("ocaml", 0), ("reason", 0), ("ruby", 0)]);
+};
 
-let%entry main = (choice: string, votes) => {
+let%entry vote = (choice: string, votes) => {
   let amount = Current.amount();
   if (amount < 5.00tz) {
     Current.failwith("Not enough money, at least 5tz to vote");
@@ -149,7 +179,7 @@ type storage = {
   owner: address,
 };
 
-let%init storage = (owner, totalSupply, decimals, name, symbol) => {
+let%init setup = (owner, totalSupply, decimals, name, symbol) => {
   let owner_account = {balance: totalSupply, allowances: Map};
   let accounts = Map.add(owner, owner_account, BigMap);
   {accounts, version: 1p, totalSupply, decimals, name, symbol, owner};
