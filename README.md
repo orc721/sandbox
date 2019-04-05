@@ -249,6 +249,80 @@ let%entry createAccount = ((dest, tokens), storage) => {
 ```
 
 
+**Roll the Dice**
+
+``` ruby
+# to be done
+```
+
+``` reason
+type game = {
+  number: nat,
+  bet: tez,
+  player: key_hash,
+};
+
+type storage = {
+  game: option(game),
+  oracle_id: address,
+};
+
+let%setup storage = (oracle_id: address) => {game: None, oracle_id};
+
+let%entry play = ((number: nat, player: key_hash), storage) => {
+  if (number > 100p) {
+    failwith("number must be <= 100");
+  };
+  if (Current.amount() == 0tz) {
+    failwith("bet cannot be 0tz");
+  };
+  if (2p * Current.amount() > Current.balance()) {
+    failwith("I don't have enough money for this bet");
+  };
+  switch (storage.game) {
+  | Some(g) => failwith(("Game already started with", g))
+  | None =>
+    let bet = Current.amount();
+    let storage = storage.game = Some({number, bet, player});
+
+    ([], storage);
+  };
+};
+
+let%entry finish = (random_number: nat, storage) => {
+  let random_number =
+    switch (random_number / 101p) {
+    | None => failwith()
+    | Some(_, r) => r
+    };
+  if (Current.sender() != storage.oracle_id) {
+    failwith("Random numbers cannot be generated");
+  };
+  switch (storage.game) {
+  | None => failwith("No game already started")
+  | Some(game) =>
+    let ops =
+      if (random_number < game.number) {
+        [];
+      } else {
+        let gain =
+          switch (game.bet * game.number / 100p) {
+          | None => 0tz
+          | Some(g, _) => g
+          };
+        let reimbursed = game.bet + gain;
+        [Account.transfer(~dest=game.player, ~amount=reimbursed)];
+      };
+
+    let storage = storage.game = None;
+    (ops, storage);
+  };
+};
+
+let%entry fund = ((), storage) => ([], storage);
+```
+
+
 ## Notes
 
 The Liquidity Language for programming contracts with OCaml or ReasonML syntax (see <http://www.liquidity-lang.org>)
