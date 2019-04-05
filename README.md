@@ -9,13 +9,14 @@ New to (Secure) Ruby? See the [Red Paper](https://github.com/s6ruby/redpaper)!
 **Let's Vote**
 
 ``` ruby
-def setup
+def setup( myname )
   @votes = Mapping.of( String, Integer )
   @votes[ "ocaml"  ] = 0
   @votes[ "reason" ] = 0
+  @votes[ myname   ] = 0
 end
 
-def receive( choice )
+def main( choice )
   assert msg.value >= 5.tz, "Not enough money, at least 5tz to vote"
   assert @votes.has_key?( choice ), "Bad vote"
 
@@ -123,7 +124,7 @@ end
 
 gets cross-compiled to:
 
-``` liquidity
+``` reason
 type account = {
   balance: nat,
   allowances: map(address, nat),
