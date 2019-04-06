@@ -33,6 +33,7 @@ or
 
 ``` python
 import smartpy as sp
+
 class NimGame(sp.Contract):
     def __init__(self, size, bound = None, winnerIsLast = False):
         self.bound        = bound
@@ -42,6 +43,7 @@ class NimGame(sp.Contract):
                   nextPlayer = 1,
                   claimed    = False,
                   winner     = 0)
+
     @sp.message
     def remove(self, data, params):
         cell = params.cell
@@ -54,6 +56,7 @@ class NimGame(sp.Contract):
         sp.check(k <= data.deck[cell])
         sp.set(data.deck[cell], data.deck[cell] - k)
         sp.set(data.nextPlayer, 3 - data.nextPlayer)
+
     @sp.message
     def claim(self, data, params):
         sp.check(sp.sum(data.deck) == 0)
@@ -65,7 +68,7 @@ class NimGame(sp.Contract):
 ```
 
 
-###  LIGO 
+###  LIGO
 
 Pascal-like contract language
 

@@ -4,6 +4,11 @@ New to (Secure) Ruby? See the [Red Paper](https://github.com/s6ruby/redpaper)!
 # (Secure) Ruby to Liquidity w/ ReasonML Syntax / Michelson (Source-to-Source) Cross-Compiler Cheat Sheet / White Paper
 
 
+The Liquidity Language for programming contracts with OCaml or ReasonML syntax (see <http://www.liquidity-lang.org>)
+compiles to (low-level) Michelson stack machine bytecode (see <https://www.michelson-lang.com>).
+
+
+
 ## By Example
 
 
@@ -289,7 +294,7 @@ let%entry play = ((number: nat, player: key_hash), storage) => {
     let storage = storage.game = Some({number, bet, player});
     ([], storage);
   };
-} 
+}
 
 /* Receive a random number from the oracle and compute outcome of the
    game */
@@ -324,7 +329,7 @@ let%entry finish = (random_number: nat, storage) => {
     let storage = storage.game = None;
     (ops, storage);
   };
-} 
+}
 
 /* accept funds */;
 let%entry fund = ((), storage) => ([], storage);
@@ -347,7 +352,7 @@ type storage = {
   votes: map(string, nat)          /*** Keep track of vote counts */,
   addresses: map(string, key_hash) /*** Addresses for payout */,
   deadline: timestamp              /*** Deadline after which vote closes */,
-} 
+}
 
 let%init setup = addresses => {
   /* Initialize vote counts to zero */
@@ -441,10 +446,111 @@ let%entry payout = ((), storage) => {
 ```
 
 
+## Bonus: (Secure) Ruby to SmartPy to SmartML / Michelson (Source-to-Source) Cross-Compiler Cheat Sheet
+
+The SmartPy¹ library for programming contracts with Python
+(see [Introducing SmartPy](https://medium.com/@SmartPy_io/introducing-smartpy-and-smartpy-io-d4013bee7d4e))
+compiles to SmartML and onto Michelson bytecode.
+
+¹: Upcoming / Planned for Summer 2019
+
+
+
+**Let's Play Nim**
+
+> Nim is a mathematical game of strategy in which two players take turns
+> removing objects from distinct heaps.
+> On each turn, a player must remove at least one object,
+> and may remove any number of objects provided they all come from the same heap.
+> The goal of the game is to avoid taking the last object.
+>
+> (Source: [Nim @ Wikipedia](https://en.wikipedia.org/wiki/Nim))
+
+
+``` ruby
+####################################
+# Nim Game Contract
+
+sig [Integer, Option(Integer), Bool],
+def setup( size, bound=nil, winner_is_last=false)
+  @bound          = bound
+  @winner_is_last = winner_is_last
+
+  @deck           = Array( 1...size+1 )  ## e.g. [1,2,3,4,...]
+  @size           = size
+  @next_player    = 1
+  @claimed        = false
+  @winner         = 0
+end
+
+# cell - representing a cell from an array
+# k    - a quantity to remove from this cell
+sig [Integer, Integer],  
+def remove( cell, k )
+  assert 0 <= cell
+  assert cell < @size
+  assert 1 <= k
+  assert k <= @bound   if @bound
+  assert k <= @deck[cell]
+
+  @deck[cell] -=  k
+  @nextPlayer = 3 - @nextPlayer   ## toggles between 1|2
+end
+
+def claim
+  assert @deck.sum == 0
+
+  @claimed = true
+  if @winner_is_last
+    @data.winner = 3 - @nextPlayer
+  else
+    @data.winner = @nextPlayer
+end
+```
+
+gets cross-compiled to:
+
+
+``` python
+import smartpy as sp
+
+class NimGame(sp.Contract):
+    def __init__(self, size, bound = None, winnerIsLast = False):
+        self.bound        = bound
+        self.winnerIsLast = winnerIsLast
+        self.init(deck       = sp.range(1, size + 1),
+                  size       = size,
+                  nextPlayer = 1,
+                  claimed    = False,
+                  winner     = 0)
+
+    @sp.message
+    def remove(self, data, params):
+        cell = params.cell
+        k = params.k
+        sp.check(0 <= cell)
+        sp.check(cell < data.size)
+        sp.check(1 <= k)
+        if self.bound is not None:
+            sp.check(k <= self.bound)
+        sp.check(k <= data.deck[cell])
+        sp.set(data.deck[cell], data.deck[cell] - k)
+        sp.set(data.nextPlayer, 3 - data.nextPlayer)
+
+    @sp.message
+    def claim(self, data, params):
+        sp.check(sp.sum(data.deck) == 0)
+        sp.set(data.claimed, True)
+        if self.winnerIsLast:
+            sp.set(data.winner, 3 - data.nextPlayer)
+        else:
+            sp.set(data.winner, data.nextPlayer)
+```
+
+
+
 ## Notes
 
-The Liquidity Language for programming contracts with OCaml or ReasonML syntax (see <http://www.liquidity-lang.org>)
-compiles to Michelson bytecode (see <https://www.michelson-lang.com>).
 
 
 ## License
@@ -458,4 +564,3 @@ Use it as you please with no restrictions whatsoever.
 ## Request for Comments (RFC)
 
 Send your questions and comments to the ruby-talk mailing list. Thanks!
-
