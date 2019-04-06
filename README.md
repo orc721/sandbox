@@ -40,7 +40,7 @@ let%entry inc = (by: int, storage) => {
 
 ``` ruby
 def setup
-  @votes = Mapping.of( String, Integer )
+  @votes = Mapping.of( String => Integer )
   @votes[ "ocaml"  ] = 0
   @votes[ "reason" ] = 0
   @votes[ "ruby"   ] = 0
