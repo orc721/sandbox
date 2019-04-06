@@ -148,8 +148,9 @@ def perform_transfer( from, dest, tokens )
   account_sender = @accounts[ from ]
   assert account_sender.balance - tokens > 0, "Not enough tokens for transfer: #{account_sender.balance}"  
 
-  account_sender = @accounts[ dest ].balance -= token
-  account_dest   = @accounts[ dest ].balance += token
+  account_sender.balance -= token
+  account_dest = @accounts[ dest ]
+  account_dest.balance   += token
 end
 ```
 
