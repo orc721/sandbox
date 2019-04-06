@@ -30,7 +30,7 @@ gets cross-compiled to:
 ``` reason
 type storage = int;
 
-let%init setup = () => {
+let%init storage = () => {
   0;
 };
 
@@ -65,7 +65,7 @@ gets cross-compiled to:
 ``` reason
 type storage = map(string, int);
 
-let%init setup = () => {
+let%init storage = () => {
   Map([("ocaml", 0), ("reason", 0), ("ruby", 0)]);
 };
 
@@ -177,7 +177,7 @@ type storage = {
   owner: address,
 };
 
-let%init setup = (owner, totalSupply, decimals, name, symbol) => {
+let%init storage = (owner, totalSupply, decimals, name, symbol) => {
   let owner_account = {balance: totalSupply, allowances: Map};
   let accounts = Map.add(owner, owner_account, BigMap);
   {accounts, version: 1p, totalSupply, decimals, name, symbol, owner};
@@ -275,7 +275,7 @@ type storage = {
   oracle_id: address,
 };
 
-let%init setup = (oracle_id: address) => {game: None, oracle_id} /* Start a new game */;
+let%init storage = (oracle_id: address) => {game: None, oracle_id} /* Start a new game */;
 
 let%entry play = ((number: nat, player: key_hash), storage) => {
   if (number > 100p) {
@@ -354,7 +354,7 @@ type storage = {
   deadline: timestamp              /*** Deadline after which vote closes */,
 }
 
-let%init setup = addresses => {
+let%init storage = addresses => {
   /* Initialize vote counts to zero */
   votes:
     Map.fold(
