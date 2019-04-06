@@ -1,5 +1,10 @@
 # Notes
 
+
+## Todos
+
+
+
 ## More Liquidity / Michelson Contract Languages
 
 ### SmartPy
