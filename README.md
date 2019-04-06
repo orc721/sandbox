@@ -508,6 +508,53 @@ def claim
 end
 ```
 
+Or using an alternative "meta" parameterized contract template / factory:
+
+``` ruby
+####################################
+# Nim Game Contract Template
+#
+# Parameter Options:
+# - bound          (default: nil)
+# - winner_is_last (default: false)
+
+sig [Integer],
+def setup( size )
+  @deck           = Array( 1...size+1 )  ## e.g. [1,2,3,4,...]
+  @size           = size
+  @next_player    = 1
+  @claimed        = false
+  @winner         = 0
+end
+
+# cell - representing a cell from an array
+# k    - a quantity to remove from this cell
+sig [Integer, Integer],  
+def remove( cell, k )
+  assert 0 <= cell
+  assert cell < @size
+  assert 1 <= k
+  if $DEFINED[:bound]
+    assert k <= $PARA[:bound]
+  end
+  assert k <= @deck[cell]
+
+  @deck[cell] -=  k
+  @nextPlayer = 3 - @nextPlayer   ## toggles between 1|2
+end
+
+def claim
+  assert @deck.sum == 0
+
+  @claimed = true
+  if $TRUE[:winner_is_last]
+    @winner = 3 - @nextPlayer
+  else
+    @winner = @nextPlayer
+  end
+end
+```
+
 gets cross-compiled to:
 
 
@@ -546,7 +593,6 @@ class NimGame(sp.Contract):
         else:
             sp.set(data.winner, data.nextPlayer)
 ```
-
 
 
 ## Notes

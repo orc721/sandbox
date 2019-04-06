@@ -4,6 +4,47 @@
 ## Todos
 
 
+## Discuss
+
+What syntax / style use for "macro" meta-templating? Now it is:
+
+``` ruby
+if $DEFINED[:bound]
+  assert k <= $PARA[:bound]
+end
+```
+
+or just use
+
+``` ruby
+if $T.bound
+  assert k <= $T.bound
+end
+```
+
+or use
+
+``` ruby
+$Pragma.bound
+$Para.bound
+Pragma[:bound]
+Para.bound
+# ...
+```
+
+or why not?  (gets auto-translated now for testing)
+
+``` ruby
+if config[:bound]
+  assert k <= config[:bound]
+end
+```
+
+Keep it executable ruby code or use a text templat engine
+e.g. embedded ruby (erb) or liquid - why? why not?
+
+
+
 
 ## More Liquidity / Michelson Contract Languages
 
