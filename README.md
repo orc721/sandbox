@@ -86,11 +86,11 @@ let%entry vote = (choice: string, votes) => {
 ``` ruby
 struct :Account,
   balance:    Money(0),
-  allowances: Mapping.of( Address, Money )
+  allowances: Mapping.of( Address => Money )
 
 sig [Address, Money, Integer, String, String],
 def setup( owner, total_supply, decimals, name, symbol )
-  @accounts = Mapping.of( Address, Account )
+  @accounts = Mapping.of( Address => Account )
   @accounts[ owner ].total_supply = total_supply
 
   @version      = 1
