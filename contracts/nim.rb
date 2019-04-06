@@ -32,7 +32,7 @@ def claim
 
   @claimed = true
   if @winner_is_last
-    @data.winner = 3 - @nextPlayer
+    @winner = 3 - @nextPlayer
   else
-    @data.winner = @nextPlayer
+    @winner = @nextPlayer
 end
