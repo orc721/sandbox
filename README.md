@@ -75,10 +75,10 @@ entry [String],
 def vote( choice, votes )
   amount = Current.amount
   if amount < 5.tz
-    Current.failwith( "Not enough money, at least 5tz to vote" )
+    failwith( "Not enough money, at least 5tz to vote" )
   else
     match Map.find(choice, votes), {
-      None: ->()  { Current.failwith( "Bad vote" ) },
+      None: ->()  { failwith( "Bad vote" ) },
       Some: ->(x) { votes = Map.add(choice, x + 1, votes); [[], votes] }}
   end
 end
@@ -97,13 +97,13 @@ let%init storage = () => {
 let%entry vote = (choice: string, votes) => {
   let amount = Current.amount();
   if (amount < 5.00tz) {
-    Current.failwith("Not enough money, at least 5tz to vote");
+    failwith("Not enough money, at least 5tz to vote");
   } else {
     switch (Map.find(choice, votes)) {
-    | None => Current.failwith("Bad vote")
+    | None    => failwith("Bad vote")
     | Some(x) =>
-      let votes = Map.add(choice, x + 1, votes);
-      ([], votes);
+        let votes = Map.add(choice, x + 1, votes);
+        ([], votes);
     };
   };
 };
