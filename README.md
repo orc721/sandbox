@@ -139,73 +139,120 @@ _, storage = vote( "python", storage )
 **Minimum Viable Token**
 
 ``` ruby
-struct :Account,
-  balance:    Money(0),
-  allowances: Mapping.of( Address => Money )
+type :Account, {
+  balance:      Nat,
+  allowances:   Map‹Address→Nat› }
 
-sig [Address, Money, Integer, String, String],
-def setup( owner, total_supply, decimals, name, symbol )
-  @accounts = Mapping.of( Address => Account )
-  @accounts[ owner ].total_supply = total_supply
+type :Storage, {
+  accounts:     BigMap‹Address→Account›,
+  version:      Nat,
+  total_supply: Nat,
+  decimals:     Nat,
+  name:         String,
+  symbol:       String,
+  owner:        Address }
 
-  @version      = 1
-  @total_supply = total_supply
-  @decimals     = decimals
-  @name         = name
-  @symbol       = symbol
-  @owner        = owner
-end  
-
-sig [Address, Money],
-def transfer( dest, tokens )
- perform_transfer( msg.sender, dest, tokens )
+init [Address, Nat, Nat, String, String],
+def storage( owner, total_supply, decimals, name, symbol )
+  owner_account = Account.new( total_supply, {} )
+  accounts      = Map.add( owner, owner_account, {} )
+  Storage.new( accounts, 1.p, total_supply, decimals, name, symbol, owner )
 end
 
-sig [Address, Money],
-def approve( spender, tokens )
-  account_sender = @accounts[ msg.sender ]
-  if tokens == 0
-    account_sender.allowances[ spender ].delete
-  else
-    account_sender.allowances[ spender ] = tokens
+sig [Address, BigMap‹Address→Account›],
+def get_account(a, accounts)
+  match Map.find(a, accounts), {
+    None: ->()        { Account.new( 0.p, {} ) },  ## fix: allow (struct) init with keys too
+    Some: ->(account) { account }}
+end
+
+sig [Address, Address, Nat],
+def perform_transfer(from, dest, tokens, storage)
+  accounts = storage.accounts
+  account_sender = get_account( from, accounts )
+  new_account_sender =
+    match is_nat(account_sender.balance - tokens), {
+     None: ->()  { failwith( "Not enough tokens for transfer", account_sender.balance ) },
+     Some: ->(b) {
+                    ## fix (w/o clone) was: account_sender.balance = b
+                    account_sender_clone = account_sender.clone
+                    account_sender_clone.balance = b
+                    account_sender_clone
+                 }}
+
+  accounts = Map.add(from, new_account_sender, accounts)
+  account_dest = get_account( dest, accounts )
+  ## fix (w/o) clone was:  new_account_dest = account_dest.balance = account_dest.balance + tokens
+  account_dest_clone = account_dest.clone
+  account_dest_clone.balance = account_dest.balance + tokens
+  new_account_dest = account_dest_clone
+  accounts = Map.add(dest, new_account_dest, accounts)
+
+  ## fix (w/o clone) was:  [[], storage.accounts = accounts]
+  storage_clone = storage.clone
+  storage_clone.accounts = accounts
+  [[], storage_clone]
+end
+
+entry [Address, Nat],
+def transfer( dest, tokens, storage )
+  perform_transfer( Current.sender, dest, tokens, storage )
+end
+
+entry [Address, Nat],
+def approve( spender, tokens, storage )
+  account_sender = get_account( Current.sender, storage.accounts)
+
+  ## fix (w/o clone) was:  account_sender = account_sender.allowances =
+  account_sender = account_sender.clone
+    account_sender.allowances =
+      if tokens == 0.p
+        Map.remove( spender, account_sender.allowances )
+      else
+        Map.add( spender, tokens, account_sender.allowances )
+      end
+
+  storage = storage.clone
+    ## fix (w/o clone) was: storage = storage.accounts =
+    storage.accounts = Map.add( Current.sender, account_sender, storage.accounts);
+
+  [[], storage]
+end
+
+entry [Address, Address, Nat],
+def transfer_from( from, dest, tokens, storage)
+  account_from = get_account( from, storage.accounts )
+  new_allowances_from =
+    match Map.find( Current.sender, account_from.allowances ), {
+      None: ->()        { failwith( "Not allowed to spend from", from ) },
+      Some: ->(allowed) {
+        match is_nat(allowed - tokens), {
+          None: ->() { failwith( "Not enough allowance for transfer", allowed ) },
+          Some: ->(allowed) {
+            if allowed == 0.p
+              Map.remove( Current.sender, account_from.allowances )
+            else
+              Map.add( Current.sender, allowed, account_from.allowances )
+            end
+          }
+        }
+      }
+    }
+  ## fix (w/o clone) was: account_from =
+  account_from = account_from.clone
+  account_from.allowances = new_allowances_from
+  ## fix (w/o clone was: storage =
+  storage = storage.clone
+    storage.accounts = Map.add( from, account_from, storage.accounts )
+  perform_transfer( from, dest, tokens, storage )
+end
+
+entry [Address, Nat],
+def create_account( dest, tokens, storage )
+  if Current.sender != storage.owner
+    failwith( "Only owner can create accounts" )
   end
-end  
-
-sig [Address, Address, Money],
-def transfer_from( from, dest, tokens )
-  account_from = @accounts[ from ]
-
-  assert account_from.allowances.has_key?( msg.sender ), "Not allowed to spend from: #{from}"
-
-  allowed     = account_from.allowances[ msg.sender ]
-  new_allowed = allowed - tokens
-  assert new_allowed > 0, "Not enough allowance for transfer: #{allowed}"
-
-  if new_allowed == 0
-    account_from.allowances[ msg.sender ].delete
-  else
-    account_from.allowances[ msg.sender ] = new_allowed
-  end
-
-  perform_transfer( from, dest, tokens )
-end
-
-sig [Address, Money],
-def create_account( dest, tokens )
-  assert msg.sender == @owner, "Only owner can create accounts"
-  perform_transfer( @owner, dest, tokens )
-end
-
-private
-
-sig [Address, Address, Money],
-def perform_transfer( from, dest, tokens )
-  account_sender = @accounts[ from ]
-  assert account_sender.balance - tokens > 0, "Not enough tokens for transfer: #{account_sender.balance}"  
-
-  account_sender.balance -= token
-  account_dest = @accounts[ dest ]
-  account_dest.balance   += token
+  perform_transfer( storage.owner, dest, tokens, storage )
 end
 ```
 
@@ -303,6 +350,7 @@ let%entry createAccount = ((dest, tokens), storage) => {
   perform_transfer((storage.owner, dest, tokens, storage));
 };
 ```
+
 
 
 ## Bonus: (Secure) Ruby to SmartPy to SmartML / Michelson (Source-to-Source) Cross-Compiler Cheat Sheet
