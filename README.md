@@ -64,21 +64,26 @@ _, storage = inc( 1, storage )
 **Let's Vote**
 
 ``` ruby
-def setup
-  @votes = Mapping.of( String => Integer )
-  @votes[ "ocaml"  ] = 0
-  @votes[ "reason" ] = 0
-  @votes[ "ruby"   ] = 0
+type :Storage, Map‹String→Integer›
+
+init [],
+def storage()
+  {"ocaml" => 0, "reason" => 0, "ruby" => 0}
 end
 
-sig [String],
-def vote( choice )
-  assert msg.value >= 5.tz, "Not enough money, at least 5tz to vote"
-  assert @votes.has_key?( choice ), "Bad vote"
-
-  @votes[choice] += 1
+entry [String],
+def vote( choice, votes )
+  amount = Current.amount
+  if amount < 5.tz
+    Current.failwith( "Not enough money, at least 5tz to vote" )
+  else
+    match Map.find(choice, votes), {
+      None: ->()  { Current.failwith( "Bad vote" ) },
+      Some: ->(x) { votes = Map.add(choice, x + 1, votes); [[], votes] }}
+  end
 end
 ```
+
 
 gets cross-compiled to:
 
@@ -104,6 +109,35 @@ let%entry vote = (choice: string, votes) => {
 };
 ```
 
+Note: For (local) testing you can run the "Yes, It's Just Ruby" version with the michelson testnet "simulator" library. Example:
+
+``` ruby
+storage  = storage()
+#=> calling storage()...
+#=> returning:
+#=> {"ocaml"=>0, "reason"=>0, "ruby"=>0}
+_, storage = vote( "ruby", storage )
+#=> calling vote( "ruby", {"ocaml"=>0, "reason"=>0, "ruby"=>0} )...
+#=> !! RuntimeError: failwith - Not enough money, at least 5tz to vote
+
+Current.amount = 10.tz
+
+storage  = storage()
+#=> calling storage()...
+#=> returning:
+#=> {"ocaml"=>0, "reason"=>0, "ruby"=>0}
+_, storage = vote( "ruby", storage )
+#=> calling vote( "ruby", {"ocaml"=>0, "reason"=>0, "ruby"=>0} )...
+#=> returning:
+#=> [[], {"ocaml"=>0, "reason"=>0, "ruby"=>1}]
+_, storage = vote( "reason", storage )
+#=> calling vote( "reason", {"ocaml"=>0, "reason"=>0, "ruby"=>1} )...
+#=> returning:
+#=> [[], {"ocaml"=>0, "reason"=>1, "ruby"=>1}]
+_, storage = vote( "python", storage )
+#=> calling vote( "python", {"ocaml"=>0, "reason"=>1, "ruby"=>1} )...
+#=> !! RuntimeError: failwith - Bad vote
+```
 
 
 **Minimum Viable Token**
