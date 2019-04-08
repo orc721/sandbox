@@ -17,7 +17,7 @@ end
 ```
 
 
-**Let's Vote**
+**Let's Vote**  - Solidity Version
 
 ``` ruby
 def setup
