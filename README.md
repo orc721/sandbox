@@ -24,8 +24,7 @@ end
 
 entry [Integer],
 def inc( by, storage )
-  storage += by
-  [[], storage]
+  [[], storage + by]
 end
 ```
 
