@@ -15,13 +15,17 @@ compiles to (low-level) Michelson stack machine bytecode (see <https://www.miche
 **Let's Count - 0, 1, 2, 3**
 
 ``` ruby
-def setup
-  @counter = 0
+type :Storage, Integer
+
+init [],
+def storage()
+  0
 end
 
-sig [Integer],
-def inc( by )
-  @counter += by
+entry [Integer],
+def inc( by, storage )
+  storage += by
+  [[], storage]
 end
 ```
 
@@ -39,6 +43,23 @@ let%entry inc = (by: int, storage) => {
 };
 ```
 
+
+Note: For (local) testing you can run the "Yes, It's Just Ruby" version with the michelson testnet "simulator" library. Example:
+
+``` ruby
+storage  = storage()
+# => calling storage()... 
+# => returning:
+# => 0
+_, storage = inc( 2, storage )
+# => calling inc( 2, 0 )...
+# => returning:
+# => [[], 2]
+_, storage = inc( 1, storage )
+# => calling inc( 1, 2 )...
+# => returning:
+# => [[], 3]
+```
 
 
 **Let's Vote**
