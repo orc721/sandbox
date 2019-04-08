@@ -1,6 +1,8 @@
 # Liquidity <=> Solidity Cheat Sheet
 
 
+## By Example
+
 **Let's Count - 0, 1, 2, 3**   - Solidity Version
 
 ``` ruby
