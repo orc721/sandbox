@@ -4,55 +4,7 @@
 **Roll the Dice**
 
 ``` ruby
-struct :Game,
-  number:  0,
-  bet:     Money(0),
-  player:  Address(0)
-
-sig [Address],
-def setup( oracle )
-  @oracle = oracle
-  @game   = Game(0)
-end
-
-sig [Integer, Address],
-def play(number, player)
-  assert number <= 100, "number must be <= 100"
-  assert msg.value > 0 "bet cannot be 0tz"
-
-  assert 2 * msg.value <= this.balance, "I don't have enough money for this bet"
-  assert @game != Game(0), "Game already started with: #{@game}"
-
-  @game.number = number
-  @game.bet    = msg.value
-  @game.player = player
-end
-
-# Receive a random number from the oracle and compute outcome of the
-#   game
-
-sig [Integer],
-def finish(random_number)
-  random_number = random_nuber % 101
-
-  assert msg.sender == @oracle_id, "Random numbers cannot be generated"
-  assert @game == Game(0), "No game already started"
-
-  if random_number < @game.number
-    ## Lose
-    ## - Do nothing
-  else
-    ## Win
-    gain       = @game.bet * @game.number / 100
-    reimbursed = @game.bet + gain
-    @game.player.transfer( reimbursed )
-
-    @game = Game(0)
-  end
-end
-
-# accept funds
-def fund(); end
+# to be done
 ```
 
 gets cross-compiled to:
@@ -134,69 +86,7 @@ let%entry fund = ((), storage) => ([], storage);
 **Let's Vote (Again)**
 
 ``` ruby
-sig [Array‹Address›],
-def setup( addresses )
-
-  @voters    = Mapping‹Address→Unit›.new
-  @votes     = Mapping‹Address→Integer›.new
-  @addresses = addresses
-  @deadline  = block.timestamp + 1.day
-
-  addresses.each do |address|
-    @votes[address] = 0
-  end
-end
-
-# Entry point for voting.
-#   @param choice An address corresponding to the candidate
-
-sig [Address],
-def vote( choice )
-  assert block.timestamp <= @deadline, "Voting closed"
-  assert msg.value >= 5.tz, "Not enough money, at least 5tz to vote"
-  assert !@voters.has_key?( msg.sender ), "Has already voted: #{msg.sender}"
-
-  # Vote must be for an existing candidate
-  assert @votes.has_key?( choice ),  "Bad vote: #{choice}"
-  # Increase vote count for candidate
-  @votes[choice] += 1
-  # Register voter
-  @voter[msg.sender]
-end
-
-# Auxiliary function : returns the list of candidates with the
-#   maximum number of votes (there can be more than one in case of
-#   draw).
-def find_winners( votes )
-  winners = Array‹Address›.new
-  max     = 0
-  votes.each do |addr,num|
-     if num == max
-       winners.push( addr )
-     elsif num > max
-       max = num
-       winners.clear
-       winners.push( addr )
-     else
-       # do nothing
-     end
-  end
-  winners
-end
-
-# Entry point for paying winning candidates.
-def payout
-  # Only allowed once voting period is over
-  assert block.timestamp > deadline, "Voting ongoing"
-  # Indentify winners of vote
-  winners = find_winners( @votes )
-  # Balance of contract is split equally between winners
-  amount = this.balance / winner.length
-
-  winners.each do |winner|
-    winner.transfer( amount )
-  end
-end
+# to be done
 ```
 
 gets cross-compiled to:
