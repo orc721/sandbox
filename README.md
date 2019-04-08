@@ -122,10 +122,6 @@ _, storage = vote( "ruby", storage )
 
 Current.amount = 10.tz
 
-storage  = storage()
-#=> calling storage()...
-#=> returning:
-#=> {"ocaml"=>0, "reason"=>0, "ruby"=>0}
 _, storage = vote( "ruby", storage )
 #=> calling vote( "ruby", {"ocaml"=>0, "reason"=>0, "ruby"=>0} )...
 #=> returning:
