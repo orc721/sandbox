@@ -153,6 +153,20 @@ end
 (Source: [`contracts/vote.rb`](contracts/vote.rb))
 
 
+Aside - Type-Safe Function Signature Shortcuts ("Auto-Completion")
+
+| Short Version                 | Long Version                                                          |
+|-------------------------------|-----------------------------------------------------------------------|
+| `init []`                     | `sig :init,  [] => [Storage]`                                         |
+| `entry [String]`              | `sig :entry, [String, Storage] => [Array‹Operation›, Storage]`        |
+| `sig [Address, Address, Nat]`¹ | `sig [Address, Address, Nat, Storage] => [Array‹Operation›, Storage]` |
+| `sig [Address, BigMap‹Address→Account›] => [Account]`² | `sig [Address, BigMap‹Address→Account›] => [Account]` |
+
+¹: The signature is missing the return type - "auto-completes" `Storage` parameter and return type; for no return type use `[]`. 
+
+²: No magic "auto-completion". Short version is the same as the long version.
+
+
 #### Liquidity (w/ ReasonML)
 
 gets cross-compiled to:
