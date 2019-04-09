@@ -25,6 +25,8 @@ Using the michelson test simulator / runtime for type-safe 'n' functional (crypt
 
 **Let's Count - 0, 1, 2, 3**
 
+"Classic" Style
+
 ``` ruby
 type :Storage, Integer
 
@@ -38,6 +40,23 @@ def inc( by, storage )
   [[], storage + by]
 end
 ```
+
+"Modern" Style with Language Syntax Pragmas
+
+``` ruby
+type Storage = Integer
+
+init [],
+def storage()
+  0
+end
+
+entry [Integer],
+def inc( by, storage )
+  [[], storage + by]
+end
+```
+
 
 And for (local) testing you can run the "Yes, It's Just Ruby" version with the michelson testnet "simulator" library. Try:
 
@@ -76,6 +95,29 @@ def vote( choice, votes )
     match Map.find(choice, votes), {
       None: ->()  { failwith( "Bad vote" ) },
       Some: ->(x) { votes = Map.add(choice, x + 1, votes); [[], votes] }}
+  end
+end
+```
+
+"Modern" Style with Language Syntax Pragmas
+
+``` ruby
+type Storage = Map‹String→Integer›
+
+init [],
+def storage()
+  {"ocaml" => 0, "reason" => 0, "ruby" => 0}
+end
+
+entry [String],
+def vote( choice, votes )
+  amount = Current.amount
+  if amount < 5.tz
+    failwith( "Not enough money, at least 5tz to vote" )
+  else
+    match Map.find(choice, votes), {
+      | None    => { failwith( "Bad vote" ) },
+      | Some(x) => { votes = Map.add(choice, x + 1, votes); [[], votes] }}
   end
 end
 ```
