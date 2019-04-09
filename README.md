@@ -3,16 +3,25 @@ New to (Secure) Ruby? See the [Red Paper](https://github.com/s6ruby/redpaper)!
 
 # (Secure) Ruby to Liquidity w/ ReasonML Syntax / Michelson (Source-to-Source) Cross-Compiler Cheat Sheet / White Paper
 
+**What's Michelson? What's Liquidity?**
 
-The Liquidity Language for programming contracts with OCaml or ReasonML syntax (see <http://www.liquidity-lang.org>)
-compiles to (low-level) Michelson stack machine bytecode (see <https://www.michelson-lang.com>).
+The Liquidity language lets you programm (crypto) contracts with (higher-level type-safe functional) OCaml or ReasonML syntax (see <http://www.liquidity-lang.org>)
+compiling to (low-level) Michelson stack machine bytecode (see <https://www.michelson-lang.com>).
+
 
 
 
 ## By Example
 
 
-**Let's Count - 0, 1, 2, 3**
+### Let's Count - 0, 1, 2, 3
+
+[Ruby Version](#ruby) •
+[Liquidity (w/ ReasonML) Version]()
+
+
+
+#### Ruby
 
 ``` ruby
 type :Storage, Integer
@@ -27,6 +36,8 @@ def inc( by, storage )
   [[], storage + by]
 end
 ```
+
+#### Liquidity (w/ ReasonML)
 
 gets cross-compiled to:
 
@@ -43,11 +54,13 @@ let%entry inc = (by: int, storage) => {
 ```
 
 
-Note: For (local) testing you can run the "Yes, It's Just Ruby" version with the michelson testnet "simulator" library. Example:
+#### Test, Test, Test
+
+Note: For (local) testing you can run the "Yes, It's Just Ruby" version with the michelson testnet "simulator" library. See [`/michelson »` ](michelson). Example:
 
 ``` ruby
 storage  = storage()
-# => calling storage()... 
+# => calling storage()...
 # => returning:
 # => 0
 _, storage = inc( 2, storage )
@@ -61,7 +74,13 @@ _, storage = inc( 1, storage )
 ```
 
 
-**Let's Vote**
+### Let's Vote
+
+[Ruby Version](#ruby) •
+[Liquidity (w/ ReasonML) Version]()
+
+
+#### Ruby
 
 ``` ruby
 type :Storage, Map‹String→Integer›

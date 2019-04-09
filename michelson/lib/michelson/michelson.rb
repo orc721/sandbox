@@ -1,4 +1,4 @@
-require 'pp'
+# encoding: utf-8
 
 
 
@@ -20,7 +20,9 @@ end
 
 
 def define_function( method, signature )
-  Object.send( :alias_method, "#{method}_unsafe", method )
+  ## todo/fix: check if we are in a module ?
+  ##    only use Object.__send__ as a (last) fallback (for convenience) - why? why not?
+  Object.__send__( :alias_method, "#{method}_unsafe", method )
 
   puts "define function #{method}:"
   pp signature
@@ -89,6 +91,7 @@ class Current
   def self.sender()       @sender ||= "0x0000"; end
 
 
+  ## todo/check:  Current.failwith exits? - always use "global" failwith - why? why not?
   def self.failwith( *args)
     ## hack: todo - is there a better way to call "global" outer failwith function/method ???
     Object.send( :failwith, *args );
