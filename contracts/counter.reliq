@@ -1,0 +1,9 @@
+type storage = int;
+
+let%init storage = () => {
+  0;
+};
+
+let%entry inc = (by: int, storage) => {
+  ([], storage + by);
+};

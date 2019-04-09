@@ -1,4 +1,9 @@
-require_relative "michelson"
+# encoding: utf-8
+
+######################################
+#  Minimum Viable Token
+
+require "michelson"
 
 
 type :Account, {
@@ -16,7 +21,6 @@ type :Storage, {
   owner:        Address }
 
 
-# or sig :init,  (long version)
 init [Address, Nat, Nat, String, String],
 def storage( owner, total_supply, decimals, name, symbol )
   owner_account = Account.new( total_supply, {} )
@@ -25,7 +29,7 @@ def storage( owner, total_supply, decimals, name, symbol )
 end
 
 
-sig [Address, BigMap],  # big_map(address, account)
+sig [Address, BigMap‹Address→Account›],
 def get_account(a, accounts)
   match Map.find(a, accounts), {
     None: ->()        { Account.new( 0.p, {} ) },  ## fix: allow (struct) init with keys too
@@ -129,8 +133,8 @@ end
 
 
 
-
-
+############################
+# Test, Test, Test
 
 storage = storage( "0x1111", 100_000_000, 2, "Shilling", "BTS")
 

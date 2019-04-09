@@ -17,8 +17,7 @@ compiling to (low-level) Michelson stack machine bytecode (see <https://www.mich
 ### Let's Count - 0, 1, 2, 3
 
 [Ruby Version](#ruby) •
-[Liquidity (w/ ReasonML) Version]()
-
+[Liquidity (w/ ReasonML) Version](#liquidity-w-reasonml)
 
 
 #### Ruby
@@ -37,6 +36,9 @@ def inc( by, storage )
 end
 ```
 
+(Source: [`contracts/counter.rb`](contracts/counter.rb))
+
+
 #### Liquidity (w/ ReasonML)
 
 gets cross-compiled to:
@@ -52,6 +54,9 @@ let%entry inc = (by: int, storage) => {
   ([], storage + by);
 };
 ```
+
+(Source: [`contracts/counter.reliq`](contracts/counter.reliq))
+
 
 
 #### Test, Test, Test
@@ -77,7 +82,7 @@ _, storage = inc( 1, storage )
 ### Let's Vote
 
 [Ruby Version](#ruby) •
-[Liquidity (w/ ReasonML) Version]()
+[Liquidity (w/ ReasonML) Version](#liquidity-w-reasonml)
 
 
 #### Ruby
@@ -103,6 +108,10 @@ def vote( choice, votes )
 end
 ```
 
+(Source: [`contracts/vote.rb`](contracts/vote.rb))
+
+
+#### Liquidity (w/ ReasonML)
 
 gets cross-compiled to:
 
@@ -128,7 +137,13 @@ let%entry vote = (choice: string, votes) => {
 };
 ```
 
-Note: For (local) testing you can run the "Yes, It's Just Ruby" version with the michelson testnet "simulator" library. Example:
+(Source: [`contracts/vote.reliq`](contracts/vote.reliq))
+
+
+
+#### Test, Test, Test
+
+Note: For (local) testing you can run the "Yes, It's Just Ruby" version with the michelson testnet "simulator" library.  See [`/michelson »` ](michelson). Example:
 
 ``` ruby
 storage  = storage()
@@ -155,7 +170,13 @@ _, storage = vote( "python", storage )
 ```
 
 
-**Minimum Viable Token**
+### Minimum Viable Token
+
+[Ruby Version](#ruby) •
+[Liquidity (w/ ReasonML) Version](#liquidity-w-reasonml)
+
+
+#### Ruby
 
 ``` ruby
 type :Account, {
@@ -275,6 +296,12 @@ def create_account( dest, tokens, storage )
 end
 ```
 
+(Source: [`contracts/token.rb`](contracts/token.rb))
+
+
+#### Liquidity (w/ ReasonML)
+
+
 gets cross-compiled to:
 
 ``` reason
@@ -370,19 +397,28 @@ let%entry createAccount = ((dest, tokens), storage) => {
 };
 ```
 
+(Source: [`contracts/token.reliq`](contracts/token.reliq))
+
+
 
 
 ## Bonus: (Secure) Ruby to SmartPy to SmartML / Michelson (Source-to-Source) Cross-Compiler Cheat Sheet
 
-The SmartPy¹ library for programming contracts with Python
+The SmartPy¹ library lets you program contracts in Python
 (see [Introducing SmartPy](https://medium.com/@SmartPy_io/introducing-smartpy-and-smartpy-io-d4013bee7d4e))
-compiles to SmartML and onto Michelson bytecode.
+compiling to SmartML and onto Michelson bytecode.
 
 ¹: Upcoming / Planned for Summer 2019
 
 
 
-**Let's Play Nim**
+
+### Let's Play Nim - The Ancient Math Subtraction Game
+
+[Ruby Version](#ruby) •
+[Python (w/ SmartPy) Version](#python-w-smartpy)
+
+#### Ruby
 
 > Nim is a mathematical game of strategy in which two players take turns
 > removing objects from distinct heaps.
@@ -481,6 +517,9 @@ def claim
 end
 ```
 
+
+#### Python (w/ SmartPy)
+
 gets cross-compiled to:
 
 
@@ -521,8 +560,10 @@ class NimGame(sp.Contract):
 ```
 
 
+<!--
 ## Notes
 
+-->
 
 
 ## License

@@ -1,8 +1,13 @@
-require_relative "michelson"
+# encoding: utf-8
+
+#####################################
+# Let's Vote
+
+require "michelson"
 
 
 
-type :Storage, Map  # map(string, int);
+type :Storage, Map‹String→Integer›
 
 init [],
 def storage()
