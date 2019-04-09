@@ -5,10 +5,8 @@ New to (Secure) Ruby? See the [Red Paper](https://github.com/s6ruby/redpaper)!
 
 **What's Michelson? What's Liquidity?**
 
-The Liquidity language lets you programm (crypto) contracts with (higher-level type-safe functional) OCaml or ReasonML syntax (see <http://www.liquidity-lang.org>)
-compiling to (low-level) Michelson stack machine bytecode (see <https://www.michelson-lang.com>).
-
-
+The [Liquidity language](http://www.liquidity-lang.org) lets you programm (crypto) contracts with (higher-level type-safe functional) OCaml or ReasonML syntax
+compiling to (lower-level) [Michelson stack machine bytecode](https://www.michelson-lang.com).
 
 
 ## By Example
@@ -16,8 +14,8 @@ compiling to (low-level) Michelson stack machine bytecode (see <https://www.mich
 
 ### Let's Count - 0, 1, 2, 3
 
-[Ruby Version](#ruby) •
-[Liquidity (w/ ReasonML) Version](#liquidity-w-reasonml)
+[Ruby](#ruby) •
+[Liquidity (w/ ReasonML)](#liquidity-w-reasonml)
 
 
 #### Ruby
@@ -81,8 +79,8 @@ _, storage = inc( 1, storage )
 
 ### Let's Vote
 
-[Ruby Version](#ruby) •
-[Liquidity (w/ ReasonML) Version](#liquidity-w-reasonml)
+[Ruby](#ruby) •
+[Liquidity (w/ ReasonML)](#liquidity-w-reasonml)
 
 
 #### Ruby
@@ -172,8 +170,8 @@ _, storage = vote( "python", storage )
 
 ### Minimum Viable Token
 
-[Ruby Version](#ruby) •
-[Liquidity (w/ ReasonML) Version](#liquidity-w-reasonml)
+[Ruby](#ruby) •
+[Liquidity (w/ ReasonML)](#liquidity-w-reasonml)
 
 
 #### Ruby
@@ -415,8 +413,8 @@ compiling to SmartML and onto Michelson bytecode.
 
 ### Let's Play Nim - The Ancient Math Subtraction Game
 
-[Ruby Version](#ruby) •
-[Python (w/ SmartPy) Version](#python-w-smartpy)
+[Ruby](#ruby) •
+[Python (w/ SmartPy)](#python-w-smartpy)
 
 #### Ruby
 

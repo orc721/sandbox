@@ -14,8 +14,9 @@ michelson gem / library - test simulator / runtime for type-safe 'n' functional 
 
 **What's Michelson? What's Liquidity?**
 
-The Liquidity language lets you program (crypto) contracts with (higher-level type-safe functional) OCaml or ReasonML syntax (see <http://www.liquidity-lang.org>)
-compiling to (lower-level) Michelson stack machine bytecode (see <https://www.michelson-lang.com>).
+The [Liquidity language](http://www.liquidity-lang.org) lets you programm (crypto) contracts with (higher-level type-safe functional) OCaml or ReasonML syntax
+compiling to (lower-level) [Michelson stack machine bytecode](https://www.michelson-lang.com).
+
 
 Using the michelson test simulator / runtime for type-safe 'n' functional (crypto) contracts you can now use a "Yes, It's Just Ruby" syntax.
 
