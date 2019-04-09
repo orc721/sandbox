@@ -6,7 +6,7 @@ def type( class_name, *args )
   puts "define type #{class_name}:"
   pp args
 
-  if args.size == 1 && args[0].is_a?( Class )
+  if args.size == 1 && (args[0].is_a?( Class ) || args[0].is_a?( Module ))
     klass = args[0]
     Kernel.const_set( class_name, klass )
   elsif args.size == 1 && args[0].is_a?( Hash )
@@ -14,7 +14,7 @@ def type( class_name, *args )
     klass = Struct.new( *keys )
     Kernel.const_set( class_name, klass )
   else
-    raise ArgumentError.new( "Class or Hash expected")
+    raise ArgumentError.new( "Class|Module or Hash expected")
   end
 end
 
