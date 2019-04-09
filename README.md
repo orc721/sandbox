@@ -20,7 +20,7 @@ compiling to (lower-level) [Michelson stack machine bytecode](https://www.michel
 
 #### Ruby
 
-**"Classic" Style**
+"Classic" Style
 
 ``` ruby
 type :Storage, Integer
@@ -36,7 +36,7 @@ def inc( by, storage )
 end
 ```
 
-**"Modern" Style with Language Syntax Pragmas**
+"Modern" Style with Language Syntax Pragmas
 
 ``` ruby
 type Storage = Integer
@@ -104,7 +104,7 @@ _, storage = inc( 1, storage )
 
 #### Ruby
 
-**"Classic" Style**
+"Classic" Style
 
 ``` ruby
 type :Storage, Map‹String→Integer›
@@ -127,7 +127,7 @@ def vote( choice, votes )
 end
 ```
 
-**"Modern" Style with Language Syntax Pragmas**
+"Modern" Style with Language Syntax Pragmas
 
 ``` ruby
 type Storage = Map‹String→Integer›
@@ -220,7 +220,7 @@ _, storage = vote( "python", storage )
 
 #### Ruby
 
-**"Classic" Style**
+"Classic" Style
 
 ``` ruby
 type :Account, {
@@ -340,7 +340,7 @@ def create_account( dest, tokens, storage )
 end
 ```
 
-**"Modern" Style with Language Syntax Pragmas**
+"Modern" Style with Language Syntax Pragmas
 
 ``` ruby
 type Account = {
