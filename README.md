@@ -365,14 +365,14 @@ init [Address, Nat, Nat, String, String],
 def storage( owner, total_supply, decimals, name, symbol )
   owner_account = Account.new( total_supply, {} )
   accounts      = Map.add( owner, owner_account, {} )
-  Storage.new( accounts, 1.p, total_supply, decimals, name, symbol, owner )
+  Storage.new( accounts, 1p, total_supply, decimals, name, symbol, owner )
 end
 
 
 sig [Address, BigMap‹Address→Account›] => [Account],
 def get_account(a, accounts)
   match Map.find(a, accounts), {
-    | None          => { Account.new( 0.p, {} ) },  ## fix: allow (struct) init with keys too
+    | None          => { Account.new( 0p, {} ) },  ## fix: allow (struct) init with keys too
     | Some(account) => { account }}
 end
 
@@ -384,15 +384,15 @@ def perform_transfer(from, dest, tokens, storage)
   new_account_sender =
     match is_nat(account_sender.balance - tokens), {
      | None     => { failwith( "Not enough tokens for transfer", account_sender.balance ) },
-     | Some(b)  => { account_sender {...balance: b <} }
+     | Some(b)  => { account_sender {...balance: b } }
     }
 
   accounts = Map.add(from, new_account_sender, accounts)
   account_dest = get_account( dest, accounts )
-  new_account_dest = account_dest {...balance: account_dest.balance + tokens <}
+  new_account_dest = account_dest {...balance: account_dest.balance + tokens }
   accounts = Map.add(dest, new_account_dest, accounts)
 
-  [[], storage {...accounts = accounts <}]   
+  [[], storage {...accounts: accounts }]   
 end
 
 
@@ -407,13 +407,13 @@ def approve( spender, tokens, storage )
   account_sender = get_account( Current.sender, storage.accounts)
 
   account_sender = {...allowances: 
-      if tokens == 0.p
+      if tokens == 0p
         Map.remove( spender, account_sender.allowances )
       else
         Map.add( spender, tokens, account_sender.allowances )
-      end <}
+      end }
 
-  storage = {...accounts: Map.add( Current.sender, account_sender, storage.accounts) <}
+  storage = {...accounts: Map.add( Current.sender, account_sender, storage.accounts) }
   [[], storage]
 end
 
@@ -428,7 +428,7 @@ def transfer_from( from, dest, tokens, storage)
         match is_nat(allowed - tokens), {
           | None          => { failwith( "Not enough allowance for transfer", allowed ) },
           | Some(allowed) => {
-            if allowed == 0.p
+            if allowed == 0p
               Map.remove( Current.sender, account_from.allowances )
             else
               Map.add( Current.sender, allowed, account_from.allowances )
@@ -437,8 +437,8 @@ def transfer_from( from, dest, tokens, storage)
         }
       }
     }
-  account_from = {... allowances: new_allowances_from <}
-  storage = {... accounts: Map.add( from, account_from, storage.accounts ) <}
+  account_from = {... allowances: new_allowances_from }
+  storage = {... accounts: Map.add( from, account_from, storage.accounts ) }
   perform_transfer( from, dest, tokens, storage )
 end
 
