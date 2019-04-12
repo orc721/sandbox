@@ -44,25 +44,15 @@ def perform_transfer(from, dest, tokens, storage)
   new_account_sender =
     match is_nat(account_sender.balance - tokens), {
      None: ->()  { failwith( "Not enough tokens for transfer", account_sender.balance ) },
-     Some: ->(b) {
-                    ## fix (w/o clone) was: account_sender.balance = b
-                    account_sender_clone = account_sender.clone
-                    account_sender_clone.balance = b
-                    account_sender_clone
-                 }}
+     Some: ->(b) { account_sender.update( balance: b )}
+    }
 
   accounts = Map.add(from, new_account_sender, accounts)
   account_dest = get_account( dest, accounts )
-  ## fix (w/o) clone was:  new_account_dest = account_dest.balance = account_dest.balance + tokens
-  account_dest_clone = account_dest.clone
-  account_dest_clone.balance = account_dest.balance + tokens
-  new_account_dest = account_dest_clone
+  new_account_dest = account_dest.update( balance: account_dest.balance + tokens )
   accounts = Map.add(dest, new_account_dest, accounts)
 
-  ## fix (w/o clone) was:  [[], storage.accounts = accounts]
-  storage_clone = storage.clone
-  storage_clone.accounts = accounts
-  [[], storage_clone]
+  [[], storage.update( accounts: accounts )]
 end
 
 
@@ -76,19 +66,14 @@ entry [Address, Nat],
 def approve( spender, tokens, storage )
   account_sender = get_account( Current.sender, storage.accounts)
 
-  ## fix (w/o clone) was:  account_sender = account_sender.allowances =
-  account_sender = account_sender.clone
-    account_sender.allowances =
+  account_sender = account_sender.update( allowances:
       if tokens == 0.p
         Map.remove( spender, account_sender.allowances )
       else
         Map.add( spender, tokens, account_sender.allowances )
-      end
+      end )
 
-  storage = storage.clone
-    ## fix (w/o clone) was: storage = storage.accounts =
-    storage.accounts = Map.add( Current.sender, account_sender, storage.accounts);
-
+  storage = storage.update( accounts: Map.add( Current.sender, account_sender, storage.accounts))
   [[], storage]
 end
 
@@ -112,12 +97,8 @@ def transfer_from( from, dest, tokens, storage)
         }
       }
     }
-  ## fix (w/o clone) was: account_from =
-  account_from = account_from.clone
-  account_from.allowances = new_allowances_from
-  ## fix (w/o clone was: storage =
-  storage = storage.clone
-    storage.accounts = Map.add( from, account_from, storage.accounts )
+  account_from = account_from.update( allowances: new_allowances_from )
+  storage = storage.update( accounts: Map.add( from, account_from, storage.accounts )
   perform_transfer( from, dest, tokens, storage )
 end
 
