@@ -20,6 +20,8 @@ https://github.com/cryptopunksnotdead/cryptopunks/tree/master/insidepunks)
 <details>
 <summary>More</summary>
 
+or
+  
 > A small cactus wearing a straw hat and neon sunglasses in the Sahara desert.
 
 or
