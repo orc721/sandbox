@@ -34,6 +34,10 @@ or
 
 > A blue jay standing on a large basket of rainbow macarons.
 
+or
+  
+100+ "DrawBench" text-to-image prompts (by category) - see [data/prompts.csv](data/prompts.csv)
+  
 
 </details>
 
