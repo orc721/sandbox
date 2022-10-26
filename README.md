@@ -61,6 +61,12 @@ or
 > Imagen further utilizes text-conditional super-resolution diffusion models to upsample the image 64×64→256×256 and 256×256→1024×1024.
 
 
+**(Stability AI) Stable Diffusion** @ <https://stability.ai/blog/stable-diffusion-public-release>
+ 
+> Given a text prompt, Stable Diffusion can generate photorealistic 512×512 pixel images depicting the scene described in the prompt.
+
+
+
 More (Text-To-Image) Models:
 
 Trained on COCO¹
