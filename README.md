@@ -23,6 +23,10 @@ https://github.com/cryptopunksnotdead/cryptopunks/tree/master/insidepunks)
 <summary>More</summary>
 
 or
+
+> A painting of a fox sitting in a field at sunrise in the style of Claude Monet.
+
+or
   
 > A small cactus wearing a straw hat and neon sunglasses in the Sahara desert.
 
