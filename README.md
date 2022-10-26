@@ -4,6 +4,8 @@
 
 ## 24×24 Pixel Punk Heads - Text-To-Image "No A.I." (Spritesheet) Models / Generators
 
+> Punk • Female Light • Wild Blonde  • Blue Eye Shadow  • Hot Lipstick  • Mole
+
 [**Inside the Billion Dollar $$$ (Crypto) Punk Pixel Heads**](
 https://github.com/cryptopunksnotdead/cryptopunks/tree/master/insidepunks)
 
