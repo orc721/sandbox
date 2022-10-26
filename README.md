@@ -34,9 +34,6 @@ or
 
 > A blue jay standing on a large basket of rainbow macarons.
 
-or
-
-> A blue jay standing on a large basket of rainbow macarons.
 
 </details>
 
