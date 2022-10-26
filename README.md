@@ -81,7 +81,7 @@ is a metric used to assess the quality of images created by a generative model,
 like a generative adversarial network (GAN).
 Unlike the earlier inception score (IS), which evaluates only the distribution of generated images, 
 the FID compares the distribution of generated images with the distribution 
-of a set of real images ("ground truth").  - <https://en.wikipedia.org/wiki/Fr%C3%A9chet_inception_distance>
+of a set of real images ("ground truth").  - <https://en.wikipedia.org/wiki/Fréchet_inception_distance>
 
 
 
