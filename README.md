@@ -17,8 +17,8 @@ https://github.com/cryptopunksnotdead/cryptopunks/tree/master/insidepunks)
 > An astronaut riding a horse in space in the style of Andy Warhol.
 
 
-<detail>
- <summary>More</summary>
+<details>
+<summary>More</summary>
 
 > A small cactus wearing a straw hat and neon sunglasses in the Sahara desert.
 
