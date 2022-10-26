@@ -14,6 +14,12 @@ https://github.com/cryptopunksnotdead/cryptopunks/tree/master/insidepunks)
 
 ## Future Aside - Text-To-Image A.I. (Diffusion) Models / Generators
 
+> An astronaut riding a horse in space in the style of Andy Warhol.
+
+
+<detail>
+ <summary>More</summary>
+
 > A small cactus wearing a straw hat and neon sunglasses in the Sahara desert.
 
 or
@@ -23,6 +29,8 @@ or
 or
 
 > A blue jay standing on a large basket of rainbow macarons.
+
+</details>
 
 
 
