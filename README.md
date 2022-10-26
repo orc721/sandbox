@@ -36,7 +36,7 @@ or
 
 or
   
-100+ "DrawBench" text-to-image prompts (by category):
+100+ "DrawBench" text-to-image prompts (by category) - see [data/prompts.csv](data/prompts.csv) - Example:
 
 >      Prompts, Category
 >      A red colored car., Colors
@@ -47,7 +47,6 @@ or
 >      A blue colored dog., Colors
 >      ...
 
-see [data/prompts.csv](data/prompts.csv)
   
 </details>
 
