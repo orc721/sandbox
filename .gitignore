@@ -1,0 +1,45 @@
+# do NOT check in dev/test enviroment variables in .env (dot env files)
+.env
+.env.yaml
+.env.yml
+
+
+
+##################################
+#  add more tmp directories
+tmp/
+tmp2/
+tmp3/
+tmp4/
+tmp5/
+tmp6/
+tmp7/
+tmp32/
+tmp40/
+tmp2017/
+tmpa16z/
+tmpv2/
+
+
+
+# OSX
+.DS_Store
+
+
+
+###
+#  note:  ignore .json in market/
+#          e.g. all inscription.json datasets
+market/*.json
+
+
+#####
+#  add inbox directories (new pipeline)
+inbox/
+
+
+
+###
+#  ignore sqlite dbs
+*.db
+ord.db
