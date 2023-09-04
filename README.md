@@ -1,6 +1,33 @@
 # Ordgen / ORC-721 Sandbox
 
 
+## D.I.Y. Punks
+
+Attribute Dataset - [diypunks.csv](diypunks/diypunks.csv)
+
+```
+id, type,     accessories,             background
+ 0, Ape,      Sombrero,                Bitcoin Orange
+ 1, Alien,    Red Mohawk / Hoodie, 
+ 2, Vampire,, 
+ 3, Vampire,  Laser Eyes / Gold Chain, 
+ 4, Skeleton, Laser Eyes / Gold Chain, 
+ 5, Human,    Laser Eyes / Gold Chain, 
+ 6, Robot,    Laser Eyes / Gold Chain, 
+ 7, Zombie,   Laser Eyes / Gold Chain, 
+ 8, Orc,      Laser Eyes / Gold Chain, 
+ 9, Mummy,, 
+10, Demon,, 
+...
+```
+
+Variant No. 1  -  Classic - Without Background(s) / Always Transparent
+
+![](diypunks/i/diypunks.png)
+
+
+
+
 
 ## D.I.Y. (Recursive) Apes
 
@@ -8,17 +35,17 @@ Attribute Dataset - [diyapes.csv](diyapes/diyapes.csv)
 
 ```
 id, type, accessories
-0, Ape, Cowboy Hat
-1, Ape, Cap Forward / VR
-2, Ape, Eye Patch / Top Hat
-3, Ape, Hoodie / Earring / Cigarette / Regular Shades
-4, Ape, Cigarette / Top Hat / Eye Mask
-5, Ape, Regular Shades / Cigarette / Cap Forward
-6, Ape, Mohawk / Earring / 3D Glasses
-7, Ape, Beanie / Earring / Pipe / 3D Glasses
-8, Ape, Hoodie / 3D Glasses / Cigarette / Earring
-9, Ape, VR / Hoodie
-10, Ape, Cap Forward / Earring
+ 0, Ape,  Cowboy Hat
+ 1, Ape,  Cap Forward / VR
+ 2, Ape,  Eye Patch / Top Hat
+ 3, Ape,  Hoodie / Earring / Cigarette / Regular Shades
+ 4, Ape,  Cigarette / Top Hat / Eye Mask
+ 5, Ape,  Regular Shades / Cigarette / Cap Forward
+ 6, Ape,  Mohawk / Earring / 3D Glasses
+ 7, Ape,  Beanie / Earring / Pipe / 3D Glasses
+ 8, Ape,  Hoodie / 3D Glasses / Cigarette / Earring
+ 9, Ape,  VR / Hoodie
+10, Ape,  Cap Forward / Earring
 ...
 ```
 
