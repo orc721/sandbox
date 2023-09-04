@@ -26,6 +26,11 @@ Variant No. 1  -  Classic - Without Background(s) / Always Transparent
 ![](diypunks/i/diypunks.png)
 
 
+Variant No. 2  -  Pepe The Frog (It's Still Early)
+
+![](diypunks/i/diypunks-pepe.png)
+
+
 
 
 
@@ -100,6 +105,16 @@ Variant No. 4  -  (Bitcoin) Orange-Pilled
 </details>
 
 
+Variant No. 5  -  Pepe The Frog (It's Still Early)
+
+![](diyapes/i/diyapes-pepe.png)
+
+<details>
+<summary markdown="1">4x</summary>
+
+![](diyapes/i/diyapes-pepe@4x.png)
+
+</details>
 
 
 

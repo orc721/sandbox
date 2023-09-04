@@ -148,4 +148,29 @@ composite.zoom(4).save( "./tmp/diyapes-bitcoin@4x.png" )
 
 
 
+######
+# variant 6 - pepe
+
+composite = ImageComposite.new( 10, 10 )
+
+base = Image.read( './diyapes/pepe.png')
+
+recs.each do |rec|
+   ape = Image.new( 24, 24 )
+
+   ape.compose!( base )    unless rec['type'].empty?
+
+   accessories = rec['accessories'].split( '/' )
+   accessories.each do |name|
+      img = sheet.find_by( name: name )
+      ape.compose!( img )
+   end
+
+   composite << ape  
+end
+
+composite.save( "./tmp/diyapes-pepe.png" )
+composite.zoom(4).save( "./tmp/diyapes-pepe@4x.png" )
+
+
 puts "bye"
