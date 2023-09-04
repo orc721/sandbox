@@ -88,6 +88,17 @@ Variant No. 3  -  Natural (w/ Big Eyes)
 </details>
 
 
+Variant No. 4  -  (Bitcoin) Orange-Pilled
+
+![](diyapes/i/diyapes-bitcoin.png)
+
+<details>
+<summary markdown="1">4x</summary>
+
+![](diyapes/i/diyapes-bitcoin@4x.png)
+
+</details>
+
 
 
 
